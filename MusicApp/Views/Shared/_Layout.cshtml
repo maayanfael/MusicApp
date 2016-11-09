@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/hover.css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <nav class="container">
+        <img class="bgImage" src="Images/bgWhite.png" />
+        <div class="nav navbar-nav">
+            <li class="hvr-bounce-to-top colorA">@Html.ActionLink("Home", "Index", "Home")</li>
+            <li class="hvr-bounce-to-top colorB">@Html.ActionLink("Artists", "Index", "Artists")</li>
+            <li class="hvr-bounce-to-top colorC">@Html.ActionLink("Albums", "Index", "Albums")</li>
+            <li class="hvr-bounce-to-top colorD">@Html.ActionLink("Songs", "Index", "Songs")</li>
+            <li class="hvr-bounce-to-top colorE">@Html.ActionLink("About", "About", "Home")</li>
+            <li class="hvr-bounce-to-top colorF">@Html.ActionLink("Contact", "Contact", "Home")</li>
+        </div>
+        @Html.Partial("_LoginPartial")
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
