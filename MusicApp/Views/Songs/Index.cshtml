@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<!--<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.songName)
@@ -34,8 +34,25 @@
         </th>
         <th></th>
     </tr>
-
-@foreach (var item in Model) {
+    -->
+@foreach (var item in Model)
+{
+    <div class="row songInfo">
+        <div class="col-md-2">
+            @if (Html.DisplayFor(modelItem => item.picture).ToString().Length > 0)
+            {
+                <img class="songImage" src="data:image/png;base64,@Html.DisplayFor(modelItem => item.picture)" />
+            }
+        </div>
+        <div class="col-md-10">
+            <h3 class="songTitle">@Html.DisplayFor(modelItem => item.songName)</h3>
+            <a>@Html.DisplayFor(modelItem => item.album.AlbumName)</a> <br />
+            <a>@Html.DisplayFor(modelItem => item.artist.firstName) @Html.DisplayFor(modelItem => item.artist.lastName)</a><br />
+            @Html.DisplayFor(modelItem => item.publishDate)<br />
+            @Html.DisplayFor(modelItem => item.genre)<br />
+        </div>
+    </div>
+    <!--
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.songName)
@@ -64,6 +81,7 @@
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
+    -->
 }
 
 </table>

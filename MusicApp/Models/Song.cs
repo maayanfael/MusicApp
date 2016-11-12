@@ -7,6 +7,24 @@ using System.Web;
 
 namespace WebAppProj2.Models
 {
+    public enum Genre
+    {
+        AvantGarde,
+        Blues,
+        CaribbeanAndCaribbeanInfluenced,
+        Comedy,
+        Country,
+        EasyListening,
+        Electronic,
+        Folk,
+        HipHop,
+        Jazz,
+        Latin,
+        Pop,
+        RandBandSoul,
+        Rock
+    }
+
     public class Song
     {
         [Key]
@@ -16,14 +34,15 @@ namespace WebAppProj2.Models
         [Required]
         [DisplayName("Song Name")]
         public string songName { get; set; }
-
+        
         [Required]
         [DisplayName("Artist")]
-        public Artist artist { get; set; }
+        public int artistId { get; set; }
 
         [DisplayName("Album")]
-        public string album { get; set; }
+        public int albumId { get; set; }
 
+        [DataType(DataType.Date)]
         [DisplayName("Publish Date")]
         public DateTime publishDate { get; set; }
 
@@ -37,7 +56,9 @@ namespace WebAppProj2.Models
         public int numOfViews { get; set; }
 
         [DisplayName("Genre")]
-        public string genre { get; set; }
-        
+        public Genre genre { get; set; }
+
+        virtual public Artist artist { get; set; }
+        virtual public Album album { get; set; }
     }
 }

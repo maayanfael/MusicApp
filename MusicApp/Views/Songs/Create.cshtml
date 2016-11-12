@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Songs", null, FormMethod.Post, new { enctype = "multipart/form-data" })) 
 {
     @Html.AntiForgeryToken()
     
@@ -24,10 +24,22 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.album, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.albumId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.album, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.album, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.albumId,
+                    new SelectList(@ViewBag.Albums, "Id", "Name"),
+                    htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.albumId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.artistId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.artistId,
+                new SelectList(@ViewBag.Artists, "Id", "FullName"),
+                htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.artistId, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -42,19 +54,17 @@
         <div class="form-group">
             @Html.LabelFor(model => model.picture, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.picture, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.picture, "", new { @class = "text-danger" })
+                <input type="file" id="picture" name="picture" />
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.video, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.video, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.video, "", new { @class = "text-danger" })
+                <input type="file" id="video" name="video" />
             </div>
         </div>
-
+                
         <div class="form-group">
             @Html.LabelFor(model => model.numOfViews, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -62,11 +72,11 @@
                 @Html.ValidationMessageFor(model => model.numOfViews, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        
         <div class="form-group">
             @Html.LabelFor(model => model.genre, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.genre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EnumDropDownListFor(model => model.genre, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.genre, "", new { @class = "text-danger" })
             </div>
         </div>

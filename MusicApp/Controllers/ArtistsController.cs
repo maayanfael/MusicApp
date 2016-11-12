@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using MusicApp.Models;
 using WebAppProj2.Models;
 
-namespace RazTest.Controllers
+namespace MusicApp.Controllers
 {
     public class ArtistsController : Controller
     {
@@ -47,10 +47,21 @@ namespace RazTest.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,firstName,lastName,picture,numOfViews")] Artist artist)
+        public ActionResult Create([Bind(Include = "Id,firstName,lastName,numOfViews")] Artist artist, HttpPostedFileBase coverPhoto)
         {
             if (ModelState.IsValid)
             {
+                if (coverPhoto != null && coverPhoto.ContentLength > 0)
+                {
+                    byte[] pictureData;
+                    using (var reader = new System.IO.BinaryReader(coverPhoto.InputStream))
+                    {
+                        pictureData = reader.ReadBytes(coverPhoto.ContentLength);
+                    }
+                    string base64String = Convert.ToBase64String(pictureData);
+                    artist.picture = base64String;
+                }
+            
                 db.Artists.Add(artist);
                 db.SaveChanges();
                 return RedirectToAction("Index");

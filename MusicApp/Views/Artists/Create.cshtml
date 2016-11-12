@@ -34,8 +34,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.picture, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.picture, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.picture, "", new { @class = "text-danger" })
+                <input type="file" id="picture" name="picture" />
             </div>
         </div>
 

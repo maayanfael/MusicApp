@@ -70,3 +70,20 @@ textarea {
 .hvr-bounce-to-top a {
     color: inherit;
 }
+
+.songImage {
+    max-width: 100%;
+    max-height: 100%;
+    border: 5px white solid;
+}
+
+.songInfo {
+    background: #eaeaea;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 15px 0;
+}
+
+.songTitle {
+    margin: 5px 0;
+}

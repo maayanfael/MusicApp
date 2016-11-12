@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using MusicApp.Models;
 using WebAppProj2.Models;
 
-namespace RazTest.Controllers
+namespace MusicApp.Controllers
 {
     public class SongsController : Controller
     {
@@ -39,18 +39,54 @@ namespace RazTest.Controllers
         // GET: Songs/Create
         public ActionResult Create()
         {
+            ViewBag.Artists = from p in db.Artists.ToList()
+                               select new
+                               {
+                                   Id = p.Id,
+                                   FullName = p.firstName + " " + p.lastName
+                               };
+
+            ViewBag.Albums = from p in db.Albums.ToList()
+                              select new
+                              {
+                                  Id = p.Id,
+                                  Name = p.AlbumName
+                              };
+
             return View();
         }
 
         // POST: Songs/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,songName,album,publishDate,picture,video,numOfViews,genre")] Song song)
+        public ActionResult Create([Bind(Include = "Id,songName,albumId,artistId,publishDate,numOfViews,genre")] Song song, HttpPostedFileBase picture, HttpPostedFileBase video)
         {
             if (ModelState.IsValid)
             {
+                if (picture != null && picture.ContentLength > 0)
+                {
+                    byte[] pictureData;
+                    using (var reader = new System.IO.BinaryReader(picture.InputStream))
+                    {
+                        pictureData = reader.ReadBytes(picture.ContentLength);
+                    }
+                    string base64String = Convert.ToBase64String(pictureData);
+                    song.picture = base64String;
+                }
+
+                if (video != null && video.ContentLength > 0)
+                {
+                    byte[] videoData;
+                    using (var reader = new System.IO.BinaryReader(video.InputStream))
+                    {
+                        videoData = reader.ReadBytes(video.ContentLength);
+                    }
+                    string base64String = Convert.ToBase64String(videoData);
+                    song.video = base64String;
+                }
+
                 db.Songs.Add(song);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -58,7 +94,7 @@ namespace RazTest.Controllers
 
             return View(song);
         }
-
+        ///
         // GET: Songs/Edit/5
         public ActionResult Edit(int? id)
         {
