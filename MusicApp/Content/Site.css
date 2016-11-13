@@ -37,43 +37,51 @@ textarea {
     background-color: transparent;
 }
 
-.colorA:before {
+.colorA:before,
+.colorA.active {
     background: #341e48 !important;
     color: white !important;
 }
 
-.colorB:before {
+.colorB:before,
+.colorB.active {
     background: #274092 !important;
     color: white !important;
 }
 
 
-.colorC:before {
+.colorC:before,
+.colorC.active {
     background: #257e7f !important;
     color: white !important;
 }
 
-.colorD:before {
+.colorD:before,
+.colorD.active {
     background: #39a44d !important;
     color: white !important;
 }
 
-.colorE:before {
+.colorE:before,
+.colorE.active {
     background: #67ac18 !important;
     color: white !important;
 }
 
 
-.colorF:before {
+.colorF:before,
+.colorF.active {
     background: #afa713 !important;
     color: white !important;
 }
-.colorG:before {
+.colorG:before,
+.colorG.active {
     background: #c78218 !important;
     color: white !important;
 }
 
-.colorH:before {
+.colorH:before,
+.colorH.active {
     background: #ba2332 !important;
     color: white !important;
 }
@@ -82,13 +90,13 @@ textarea {
     color: inherit;
 }
 
-.songImage {
+.listImg {
     max-width: 100%;
     max-height: 100%;
     border: 5px white solid;
 }
 
-.songInfo {
+.listInfo {
     background: #eaeaea;
     padding: 10px;
     border-radius: 5px;
@@ -96,11 +104,11 @@ textarea {
     cursor:pointer;
 }
 
-.songTitle {
+.ListTitle {
     margin: 5px 0;
 }
 
-.artistImg {
+.imgTitle {
     width: 150px;
     height: 150px;
     border: 5px white solid;
@@ -112,9 +120,7 @@ textarea {
     text-align: -webkit-center;
 }
 
-.artistTitle {
-    background: #2bb69d;
-    color: white;
+.headerTitle {
     padding: 60px 10px 10px 10px;
     margin: -50px 0 10px 0;
     text-align: -webkit-center;
@@ -128,35 +134,35 @@ textarea {
     margin-bottom: 10px;
 }
 
-.ArtistActionBtn {
+.actionBtnTitle {
     margin-left: 5px;
-    color: #a5e8e4;
+    color: rgba(255, 255, 255, 0.7);
     font-size: medium;
     cursor: pointer;
     text-shadow: 1px 1px grey;
 }
 
-.ArtistActionBtn:hover {
+.actionBtnTitle:hover {
     color: white;
 }
 
-.ArtistActionsPos {
+.actionBtnTitlePos {
     float: left;
     margin-top: -50px;
     margin-left: 10px;
 }
 
-.artistListActionBtn {
+.ListActionBtn {
     color: #6e6e6e;
     text-shadow: 1px 1px 1px #ffffff;
     font-size: large;
     margin-left:5px;
 }
     
-.artistListActionBtn:hover {
+.ListActionBtn:hover {
     color: black;
 }
 
-.artistListPos {
+.ListActionBtnPos {
     float:right;
 }

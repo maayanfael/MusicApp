@@ -3,31 +3,39 @@
 @{
     ViewBag.Title = "Details";
 }
-<div class="col-md-10 col-md-offset-1">
-    <div class="centerAlignment">
-        @if (Html.DisplayFor(model => model.picture).ToString().Length > 0)
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="centerAlignment">
+            @if (Html.DisplayFor(model => model.picture).ToString().Length > 0)
             {
-            <img class="artistImg" src="data:image/png;base64,@Html.DisplayFor(model => model.picture)" />
-        }
-    </div>
-    <div class="artistTitle">
-        <div class="ArtistActionsPos">
-            <a title="Back to List" href="@Url.Action("Index")" class="ArtistActionBtn glyphicon glyphicon-arrow-left"></a>
-            <a title="Edit Artist" href="@Url.Action("Edit", new { id = Model.Id })" class="ArtistActionBtn glyphicon glyphicon-pencil"></a>
+                <img class="imgTitle" src="data:image/png;base64,@Html.DisplayFor(model => model.picture)" />
+            }
         </div>
-        @Html.DisplayFor(model => model.firstName) @Html.DisplayFor(model => model.lastName)
+        <div class="headerTitle colorB active">
+            <div class="actionBtnTitlePos">
+                <a title="Back to List" href="@Url.Action("Index")" class="actionBtnTitle glyphicon glyphicon-arrow-left"></a>
+                <a title="Edit Artist" href="@Url.Action("Edit", new { id = Model.Id })" class="actionBtnTitle glyphicon glyphicon-pencil"></a>
+            </div>
+            @Html.DisplayFor(model => model.firstName) @Html.DisplayFor(model => model.lastName)
+        </div>
     </div>
 </div>
-<div class="col-md-10 col-md-offset-1 MultipleColumns">
-    <label>@Html.DisplayNameFor(model => model.biography)</label>
-    @Html.DisplayFor(model => model.biography)
+<div class="row">
+    <div class="col-md-10 col-md-offset-1 MultipleColumns">
+        <label>@Html.DisplayNameFor(model => model.biography)</label>
+        @Html.DisplayFor(model => model.biography)
     </div>
-<div class="col-md-10 col-md-offset-1">
-    <label>@Html.DisplayNameFor(model => model.Discography)</label>
-        @foreach (var album in Model.Discography)
-        {
-            // cut for brevity, need to add back more code from original
-            <a href="@Url.Action("Details", "Albums", new { id=album.Id })">@album.AlbumName</a>
-        }
-
+</div>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <label>@Html.DisplayNameFor(model => model.Discography)</label>
+        <ul>
+            @foreach (var album in Model.Discography)
+            {
+                <li>
+                    <a href="@Url.Action("Details", "Albums", new { id=album.Id })">@album.AlbumName</a>
+                </li>
+            }
+        </ul>
     </div>
+</div>

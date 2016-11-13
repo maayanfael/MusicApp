@@ -38,7 +38,7 @@ namespace MusicApp.Controllers
 
         // GET: Artists/Create
         public ActionResult Create()
-        {
+        {   
             return View();
         }
 

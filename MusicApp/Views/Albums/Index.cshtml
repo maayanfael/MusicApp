@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MusicApp.Models.Album>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Albums";
 }
 
 <h2>Index</h2>
@@ -9,37 +9,27 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.AlbumName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.coverPhoto)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.numOfViews)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.AlbumName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.coverPhoto)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.numOfViews)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+
+@foreach (var item in Model)
+{
+    <div class="row listInfo" onclick="location.href='@Url.Action("Details", new { id = item.Id })';">
+        <div class="col-md-1">
+            @if (Html.DisplayFor(modelItem => item.coverPhoto).ToString().Length > 0)
+            {
+                <img class="listImg" src="data:image/png;base64,@Html.DisplayFor(modelItem => item.coverPhoto)" />
+            }
+        </div>
+        <div class="col-md-11">
+            <div class="ListActionBtnPos">
+                <a href="@Url.Action("Edit", new { id = item.Id })" class="ListActionBtn glyphicon glyphicon-pencil"></a>
+                <a href="@Url.Action("Details", new { id = item.Id })" class="ListActionBtn glyphicon glyphicon-info-sign"></a>
+                <a href="@Url.Action("Delete", new { id = item.Id })" class="ListActionBtn glyphicon glyphicon-remove"></a>
+            </div>
+            <h3 class="ListTitle">@Html.DisplayFor(modelItem => item.AlbumName)</h3>
+            <span>
+                <a href='@Url.Action("Details", "Artists", new { id = item.artistId })' >@Html.DisplayFor(modelItem => item.artist.firstName) @Html.DisplayFor(modelItem => item.artist.lastName)</a>
+            </span>
+        </div>
+    </div>
 }
-
-</table>

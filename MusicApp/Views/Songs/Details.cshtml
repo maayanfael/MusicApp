@@ -4,71 +4,40 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Song</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.songName)
-        </dt>
-
-        <dd>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="centerAlignment">
+            @if (Html.DisplayFor(model => model.picture).ToString().Length > 0)
+            {
+                <img class="imgTitle" src="data:image/png;base64,@Html.DisplayFor(model => model.picture)" />
+            }
+        </div>
+        <div class="headerTitle colorD active">
+            <div class="actionBtnTitlePos">
+                <a title="Back to List" href="@Url.Action("Index")" class="actionBtnTitle glyphicon glyphicon-arrow-left"></a>
+                <a title="Edit Artist" href="@Url.Action("Edit", new { id = Model.Id })" class="actionBtnTitle glyphicon glyphicon-pencil"></a>
+            </div>
             @Html.DisplayFor(model => model.songName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.album)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.album)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.publishDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.publishDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.picture)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.picture)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.video)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.video)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.numOfViews)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.numOfViews)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.genre)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.genre)
-        </dd>
-
-    </dl>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1 MultipleColumns">
+        <label> Artist </label> <a href='@Url.Action("Details", "Artists", new { id = Model.artistId })'>@Html.DisplayFor(modelItem => Model.artist.firstName) @Html.DisplayFor(modelItem => Model.artist.lastName)</a> <br />
+        <label> Album </label> <a href='@Url.Action("Details", "Albums", new { id = Model.albumId })'>@Html.DisplayFor(modelItem => Model.album.AlbumName)</a><br />
+        <label> Published on </label> @Html.DisplayFor(modelItem => Model.publishDate)<br />
+        <label> Genre </label> @Html.DisplayFor(modelItem => Model.genre)<br />
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        @if (Html.DisplayFor(model => model.video).ToString().Length > 0)
+            {
+            <label>Video Clip</label><br />
+            <video controls="controls">
+                <source src="data:video/mp4;base64,@Html.DisplayFor(model => model.video)" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+        }
+    </div>
+</div>

@@ -38,6 +38,13 @@ namespace MusicApp.Controllers
         // GET: Albums/Create
         public ActionResult Create()
         {
+            ViewBag.Artists = from p in db.Artists.ToList()
+                              select new
+                              {
+                                  Id = p.Id,
+                                  FullName = p.firstName + " " + p.lastName
+                              };
+
             return View();
         }
 
@@ -46,7 +53,7 @@ namespace MusicApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,AlbumName")] Album album, HttpPostedFileBase coverPhoto)
+        public ActionResult Create([Bind(Include = "Id,artistId, AlbumName")] Album album, HttpPostedFileBase coverPhoto)
         {
             if (ModelState.IsValid)
             {
@@ -79,6 +86,14 @@ namespace MusicApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Album album = db.Albums.Find(id);
+
+            ViewBag.Artists = from p in db.Artists.ToList()
+                              select new
+                              {
+                                  Id = p.Id,
+                                  FullName = p.firstName + " " + p.lastName
+                              };
+
             if (album == null)
             {
                 return HttpNotFound();
