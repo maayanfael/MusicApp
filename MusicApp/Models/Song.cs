@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace WebAppProj2.Models
+namespace MusicApp.Models
 {
     public enum Genre
     {
@@ -25,7 +26,7 @@ namespace WebAppProj2.Models
         Rock
     }
 
-    public class Song
+    public class Song : DbContext
     {
         [Key]
         [DisplayName("Song Id")]

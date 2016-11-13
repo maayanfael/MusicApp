@@ -3,7 +3,7 @@ namespace RazTest.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init : DbMigration
+    public partial class musicAppMig : DbMigration
     {
         public override void Up()
         {
@@ -13,7 +13,23 @@ namespace RazTest.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         AlbumName = c.String(nullable: false),
+                        artistId = c.Int(nullable: false),
                         coverPhoto = c.String(),
+                        numOfViews = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Artists", t => t.artistId, cascadeDelete: false)
+                .Index(t => t.artistId);
+            
+            CreateTable(
+                "dbo.Artists",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        firstName = c.String(nullable: false),
+                        lastName = c.String(nullable: false),
+                        picture = c.String(),
+                        biography = c.String(),
                         numOfViews = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
@@ -37,18 +53,6 @@ namespace RazTest.Migrations
                 .ForeignKey("dbo.Artists", t => t.artistId, cascadeDelete: true)
                 .Index(t => t.artistId)
                 .Index(t => t.albumId);
-            
-            CreateTable(
-                "dbo.Artists",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        firstName = c.String(nullable: false),
-                        lastName = c.String(nullable: false),
-                        picture = c.String(),
-                        numOfViews = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -128,6 +132,7 @@ namespace RazTest.Migrations
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.Songs", "artistId", "dbo.Artists");
             DropForeignKey("dbo.Songs", "albumId", "dbo.Albums");
+            DropForeignKey("dbo.Albums", "artistId", "dbo.Artists");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
@@ -136,13 +141,14 @@ namespace RazTest.Migrations
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.Songs", new[] { "albumId" });
             DropIndex("dbo.Songs", new[] { "artistId" });
+            DropIndex("dbo.Albums", new[] { "artistId" });
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.Artists");
             DropTable("dbo.Songs");
+            DropTable("dbo.Artists");
             DropTable("dbo.Albums");
         }
     }

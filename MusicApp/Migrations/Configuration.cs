@@ -1,4 +1,4 @@
-namespace RazTest.Migrations
+﻿namespace RazTest.Migrations
 {
     using System;
     using System.Data.Entity;

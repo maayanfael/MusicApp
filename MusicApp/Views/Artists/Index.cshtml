@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebAppProj2.Models.Artist>
+﻿@model IEnumerable<MusicApp.Models.Artist>
 
 @{
     ViewBag.Title = "Index";
@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<!--table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.firstName)
@@ -24,10 +24,31 @@
             @Html.DisplayNameFor(model => model.numOfViews)
         </th>
         <th></th>
-    </tr>
+    </tr>-->
 
-@foreach (var item in Model) {
-    <tr>
+@foreach (var item in Model)
+{
+    <div class="row songInfo" onclick="location.href='@Url.Action("Details", new { id = item.Id })';">
+        <div class="col-md-2">
+            @if (Html.DisplayFor(modelItem => item.picture).ToString().Length > 0)
+                {
+                <img class="songImage" src="data:image/png;base64,@Html.DisplayFor(modelItem => item.picture)" />
+            }
+        </div>
+        <div class="col-md-10">
+            <div class="artistListPos">
+                <a href="@Url.Action("Edit", new { id = item.Id })" class="artistListActionBtn glyphicon glyphicon-pencil"></a>
+                <a href="@Url.Action("Details", new { id = item.Id })" class="artistListActionBtn glyphicon glyphicon-info-sign"></a>
+                <a href="@Url.Action("Delete", new { id = item.Id })" class="artistListActionBtn glyphicon glyphicon-remove"></a>
+            </div>
+            <h3 class="songTitle">@Html.DisplayFor(modelItem => item.firstName) @Html.DisplayFor(modelItem => item.lastName)</h3>
+            <span>
+                @item.biography.Substring(0, Math.Min(item.biography.Length, 300))...
+            </span>
+        </div>
+    </div>
+
+    <!--<tr>
         <td>
             @Html.DisplayFor(modelItem => item.firstName)
         </td>
@@ -46,6 +67,7 @@
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>
     </tr>
+    -->
 }
 
 </table>

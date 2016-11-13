@@ -7,7 +7,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MusicApp.Models;
-using WebAppProj2.Models;
 
 namespace MusicApp.Controllers
 {
@@ -61,7 +60,7 @@ namespace MusicApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,songName,albumId,artistId,publishDate,numOfViews,genre")] Song song, HttpPostedFileBase picture, HttpPostedFileBase video)
+        public ActionResult Create([Bind(Include = "Id,songName,albumId,artistId,publishDate,genre")] Song song, HttpPostedFileBase picture, HttpPostedFileBase video)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +85,8 @@ namespace MusicApp.Controllers
                     string base64String = Convert.ToBase64String(videoData);
                     song.video = base64String;
                 }
+
+                song.numOfViews = 0;
 
                 db.Songs.Add(song);
                 db.SaveChanges();
@@ -115,10 +116,31 @@ namespace MusicApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,songName,album,publishDate,picture,video,numOfViews,genre")] Song song)
+        public ActionResult Edit([Bind(Include = "Id,songName,albumId,artistId,publishDate,genre")] Song song, HttpPostedFileBase picture, HttpPostedFileBase video)
         {
             if (ModelState.IsValid)
             {
+                if (picture != null && picture.ContentLength > 0)
+                {
+                    byte[] pictureData;
+                    using (var reader = new System.IO.BinaryReader(picture.InputStream))
+                    {
+                        pictureData = reader.ReadBytes(picture.ContentLength);
+                    }
+                    string base64String = Convert.ToBase64String(pictureData);
+                    song.picture = base64String;
+                }
+
+                if (video != null && video.ContentLength > 0)
+                {
+                    byte[] videoData;
+                    using (var reader = new System.IO.BinaryReader(video.InputStream))
+                    {
+                        videoData = reader.ReadBytes(video.ContentLength);
+                    }
+                    string base64String = Convert.ToBase64String(videoData);
+                    song.video = base64String;
+                }
                 db.Entry(song).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

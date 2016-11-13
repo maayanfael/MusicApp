@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MusicApp.Models;
-using WebAppProj2.Models;
+using MusicApp.Models;
 
 namespace MusicApp.Controllers
 {
@@ -47,7 +47,7 @@ namespace MusicApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,firstName,lastName,numOfViews")] Artist artist, HttpPostedFileBase coverPhoto)
+        public ActionResult Create([Bind(Include = "Id,firstName,lastName, biography")] Artist artist, HttpPostedFileBase coverPhoto)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +61,9 @@ namespace MusicApp.Controllers
                     string base64String = Convert.ToBase64String(pictureData);
                     artist.picture = base64String;
                 }
-            
+
+                artist.numOfViews = 0;
+
                 db.Artists.Add(artist);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -90,10 +92,21 @@ namespace MusicApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,firstName,lastName,picture,numOfViews")] Artist artist)
+        public ActionResult Edit([Bind(Include = "Id,firstName,lastName, biography")] Artist artist, HttpPostedFileBase picture)
         {
             if (ModelState.IsValid)
             {
+                if (picture != null && picture.ContentLength > 0)
+                {
+                    byte[] pictureData;
+                    using (var reader = new System.IO.BinaryReader(picture.InputStream))
+                    {
+                        pictureData = reader.ReadBytes(picture.ContentLength);
+                    }
+                    string base64String = Convert.ToBase64String(pictureData);
+                    artist.picture = base64String;
+                }
+
                 db.Entry(artist).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

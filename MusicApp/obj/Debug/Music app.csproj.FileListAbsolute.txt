@@ -212,6 +212,8 @@ C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\bin\System.Web.WebPages.De
 C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\bin\System.Web.WebPages.dll
 C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\bin\System.Web.WebPages.Razor.dll
 C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\bin\WebGrease.dll
+C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\bin\EntityFramework.xml
+C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\bin\EntityFramework.SqlServer.xml
 C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\bin\Microsoft.AI.DependencyCollector.xml
 C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\bin\Microsoft.AI.ServerTelemetryChannel.xml
 C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\bin\Microsoft.AI.Web.xml
@@ -227,8 +229,6 @@ C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\bin\System.Web.WebPages.De
 C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\bin\System.Web.WebPages.Razor.xml
 C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\bin\Antlr3.Runtime.pdb
 C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\bin\Newtonsoft.Json.xml
-C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\bin\EntityFramework.xml
-C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\bin\EntityFramework.SqlServer.xml
 C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\bin\Microsoft.AspNet.Identity.Core.xml
 C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\bin\Microsoft.AspNet.Identity.Owin.xml
 C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\bin\Microsoft.AspNet.Identity.EntityFramework.xml
@@ -243,6 +243,6 @@ C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\bin\Microsoft.Owin.Securit
 C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\obj\Debug\RazTest.dll
 C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\obj\Debug\RazTest.pdb
-C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\obj\Debug\RazTest.Migrations.init.resources
+C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\obj\Debug\Music App.csprojResolveAssemblyReference.cache
+C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\obj\Debug\RazTest.Migrations.musicAppMig.resources
 C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\obj\Debug\Music App.csproj.GenerateResource.Cache
-C:\Users\maaya\Documents\gitProject\MusicApp\MusicApp\obj\Debug\RazTest.Migrations.init1.resources

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace WebAppProj2.Models
+namespace MusicApp.Models
 {
-    public class Album
+    public class Album : DbContext
     {
         [Key]
         [DisplayName("Album Id")]
@@ -17,6 +18,10 @@ namespace WebAppProj2.Models
         [DisplayName("Album name")]
         public string AlbumName { get; set; }
 
+        [Required]
+        [DisplayName("Artist")]
+        public int? artistId { get; set; }
+
         [DisplayName("Cover Photo")]
         public string coverPhoto { get; set; }
 
@@ -25,5 +30,7 @@ namespace WebAppProj2.Models
 
         [DisplayName("Number Of views")]
         public int numOfViews { get; set; }
+
+        virtual public Artist artist { get; set; }
     }
 }

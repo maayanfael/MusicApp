@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MusicApp.Models
 {
-    public class ExternalLoginConfirmationViewModel
+    public class ExternalLoginConfirmationViewModel 
     {
         [Required]
         [Display(Name = "Email")]

@@ -1,50 +1,33 @@
-﻿@model WebAppProj2.Models.Artist
+﻿@model MusicApp.Models.Artist
 
 @{
     ViewBag.Title = "Details";
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>Artist</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.firstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.firstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.lastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.lastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.picture)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.picture)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.numOfViews)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.numOfViews)
-        </dd>
-
-    </dl>
+<div class="col-md-10 col-md-offset-1">
+    <div class="centerAlignment">
+        @if (Html.DisplayFor(model => model.picture).ToString().Length > 0)
+            {
+            <img class="artistImg" src="data:image/png;base64,@Html.DisplayFor(model => model.picture)" />
+        }
+    </div>
+    <div class="artistTitle">
+        <div class="ArtistActionsPos">
+            <a title="Back to List" href="@Url.Action("Index")" class="ArtistActionBtn glyphicon glyphicon-arrow-left"></a>
+            <a title="Edit Artist" href="@Url.Action("Edit", new { id = Model.Id })" class="ArtistActionBtn glyphicon glyphicon-pencil"></a>
+        </div>
+        @Html.DisplayFor(model => model.firstName) @Html.DisplayFor(model => model.lastName)
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="col-md-10 col-md-offset-1 MultipleColumns">
+    <label>@Html.DisplayNameFor(model => model.biography)</label>
+    @Html.DisplayFor(model => model.biography)
+    </div>
+<div class="col-md-10 col-md-offset-1">
+    <label>@Html.DisplayNameFor(model => model.Discography)</label>
+        @foreach (var album in Model.Discography)
+        {
+            // cut for brevity, need to add back more code from original
+            <a href="@Url.Action("Details", "Albums", new { id=album.Id })">@album.AlbumName</a>
+        }
+
+    </div>

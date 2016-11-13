@@ -206,13 +206,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611120813283_init.cs" />
-    <Compile Include="Migrations\201611120813283_init.Designer.cs">
-      <DependentUpon>201611120813283_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611120832338_init1.cs" />
-    <Compile Include="Migrations\201611120832338_init1.Designer.cs">
-      <DependentUpon>201611120832338_init1.cs</DependentUpon>
+    <Compile Include="Migrations\201611130521540_musicAppMig.cs" />
+    <Compile Include="Migrations\201611130521540_musicAppMig.Designer.cs">
+      <DependentUpon>201611130521540_musicAppMig.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -311,11 +307,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611120813283_init.resx">
-      <DependentUpon>201611120813283_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611120832338_init1.resx">
-      <DependentUpon>201611120832338_init1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201611130521540_musicAppMig.resx">
+      <DependentUpon>201611130521540_musicAppMig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -30,10 +30,10 @@ namespace MusicApp.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<WebAppProj2.Models.Album> Albums { get; set; }
+        public System.Data.Entity.DbSet<MusicApp.Models.Album> Albums { get; set; }
 
-        public System.Data.Entity.DbSet<WebAppProj2.Models.Artist> Artists { get; set; }
+        public System.Data.Entity.DbSet<MusicApp.Models.Artist> Artists { get; set; }
 
-        public System.Data.Entity.DbSet<WebAppProj2.Models.Song> Songs { get; set; }
+        public System.Data.Entity.DbSet<MusicApp.Models.Song> Songs { get; set; }
     }
 }
