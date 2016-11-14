@@ -50,16 +50,16 @@ namespace MusicApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,firstName,lastName, biography")] Artist artist, HttpPostedFileBase coverPhoto)
+        public ActionResult Create([Bind(Include = "Id,firstName,lastName, biography")] Artist artist, HttpPostedFileBase picture)
         {
             if (ModelState.IsValid)
             {
-                if (coverPhoto != null && coverPhoto.ContentLength > 0)
+                if (picture != null && picture.ContentLength > 0)
                 {
                     byte[] pictureData;
-                    using (var reader = new System.IO.BinaryReader(coverPhoto.InputStream))
+                    using (var reader = new System.IO.BinaryReader(picture.InputStream))
                     {
-                        pictureData = reader.ReadBytes(coverPhoto.ContentLength);
+                        pictureData = reader.ReadBytes(picture.ContentLength);
                     }
                     string base64String = Convert.ToBase64String(pictureData);
                     artist.picture = base64String;

@@ -42,18 +42,13 @@ namespace MusicApp.Controllers
         public ActionResult Create()
         {
             ViewBag.Artists = from p in db.Artists.ToList()
-                               select new
-                               {
-                                   Id = p.Id,
-                                   FullName = p.firstName + " " + p.lastName
-                               };
-
-            ViewBag.Albums = from p in db.Albums.ToList()
                               select new
                               {
                                   Id = p.Id,
-                                  Name = p.AlbumName
+                                  FullName = p.firstName + " " + p.lastName
                               };
+
+            ViewBag.Albums = db.Albums.ToList();
 
             return View();
         }
