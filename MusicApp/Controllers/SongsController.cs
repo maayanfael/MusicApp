@@ -28,6 +28,9 @@ namespace MusicApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Song song = db.Songs.Find(id);
+            song.numOfViews = song.numOfViews + 1;
+            db.Entry(song).State = EntityState.Modified;
+            db.SaveChanges();
             if (song == null)
             {
                 return HttpNotFound();
