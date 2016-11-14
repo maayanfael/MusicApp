@@ -3,7 +3,7 @@ namespace MusicApp.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class musicAppMig : DbMigration
+    public partial class MusicAppMig2 : DbMigration
     {
         public override void Up()
         {
@@ -18,7 +18,7 @@ namespace MusicApp.Migrations
                         numOfViews = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Artists", t => t.artistId, cascadeDelete: false)
+                .ForeignKey("dbo.Artists", t => t.artistId, cascadeDelete: true)
                 .Index(t => t.artistId);
             
             CreateTable(

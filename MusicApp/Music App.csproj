@@ -13,8 +13,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RazTest</RootNamespace>
-    <AssemblyName>RazTest</AssemblyName>
+    <RootNamespace>MusicApp</RootNamespace>
+    <AssemblyName>MusicApp</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -210,6 +210,10 @@
     <Compile Include="Migrations\201611130521540_musicAppMig.Designer.cs">
       <DependentUpon>201611130521540_musicAppMig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611141739114_MusicAppMig2.cs" />
+    <Compile Include="Migrations\201611141739114_MusicAppMig2.Designer.cs">
+      <DependentUpon>201611141739114_MusicAppMig2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Album.cs" />
@@ -309,6 +313,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201611130521540_musicAppMig.resx">
       <DependentUpon>201611130521540_musicAppMig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611141739114_MusicAppMig2.resx">
+      <DependentUpon>201611141739114_MusicAppMig2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
