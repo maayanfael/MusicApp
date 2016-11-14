@@ -12,6 +12,29 @@
         @Html.ActionLink("Create New", "Create")
     }
 </p>
+
+<div class="row">
+    <div class="col-md-12">
+        <aside style="{font-size: large;}">
+            Already have a song stuck in your head? let us help you find it! <button class="btn btn-primary glyphicon glyphicon-search" onclick=""></button>
+            <div class="searchArea row">
+                <div class="col-md-3">
+                    <label> Artist</label>
+                </div>
+                <div class="col-md-3">
+                    <label> Album</label>
+                </div>
+                <div class="col-md-3">
+                    <label> Genre</label>
+                </div>
+                <div class="col-md-3">
+                    <label> Num of views</label>
+                </div>
+            </div>
+        </aside>
+    </div>
+</div>
+
 @foreach (var item in Model)
 {
     <div class="row listInfo" onclick="location.href='@Url.Action("Details", new { id = item.Id })';">

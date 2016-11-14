@@ -50,7 +50,7 @@ namespace MusicApp.Migrations
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Albums", t => t.albumId, cascadeDelete: true)
-                .ForeignKey("dbo.Artists", t => t.artistId, cascadeDelete: true)
+                .ForeignKey("dbo.Artists", t => t.artistId, cascadeDelete: false)
                 .Index(t => t.artistId)
                 .Index(t => t.albumId);
             
