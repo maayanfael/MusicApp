@@ -53,6 +53,10 @@ namespace MusicApp.Controllers
                 // Error catched!
             }
 
+            ViewBag.TopArtists = db.Artists.OrderByDescending(item => item.numOfViews).Take(10);
+            ViewBag.TopAlbums = db.Albums.OrderByDescending(item => item.numOfViews).Take(10);
+            ViewBag.TopSongs = db.Songs.OrderByDescending(item => item.numOfViews).Take(10);
+
             return View();
         }
 
