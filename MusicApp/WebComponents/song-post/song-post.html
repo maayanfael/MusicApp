@@ -1,0 +1,102 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+
+
+<dom-module id="song-post">
+  <template>
+    <style>
+	    
+		#infoContainer{
+			width:100%;
+			height:100%;
+			position:relative;
+		}	
+		
+    </style>
+	<div id="infoContainer">
+		<script id="itunesGet"></script>
+	</div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'song-post',
+
+     
+
+      properties: {
+		
+		fbAccessToken:{
+			type:String,
+			value :"EAAUJZArvGNskBANMbgx2xxFqFZBAXrIRgH78Vg5SzyTH1lENqDAKkGRfJj4x97dNQhxrZAfhJUPt5zhQLQAIZCFYkTDyzZBmKdIwFecHq0SJYMh7Rvvod9JCboHHpYOv4KQfqYrJYWS3yjZBDShZB8UkriRm0ByGZAsZD"
+		},
+		
+		band:{
+		  type:String,
+		  value:""
+		},
+		song:{
+		  type:String,
+		  value:""
+		  
+		},
+		album:{
+		  type:String,
+		  value:""
+		},
+		message:{
+			type:String,
+			value:""
+		
+		}
+      },
+
+	  post:function(){
+		this.$.infoContainer.removeChild(document.querySelector("#itunesGet"));
+		var songQuery = this.song.split(" ").join("+");
+		var itunesQuery = "https://itunes.apple.com/search?term="+songQuery+"&entity=musicTrack&callback=handleResponse";
+		var scriptTag= document.createElement('script');
+		scriptTag.id = "itunesGet";
+		scriptTag.src = itunesQuery;
+		this.$.infoContainer.appendChild(scriptTag);
+	  }
+	  
+	  
+	  
+    });
+	 var handleResponse = function(response) {
+		
+		var band = document.querySelector("song-post").band;
+		var trackUrl = "";
+		var post= {"message":""}
+		for(i=0;i<response.resultCount;i++){
+			if(response.results[i].artistName.toUpperCase() === band.toUpperCase()){
+			    trackUrl=response.results[i].trackViewUrl;
+				i = response.resultCount;
+			}
+		}
+		post.message = document.querySelector("song-post").message;
+		if(trackUrl !==""){
+			post.link = trackUrl;
+		}
+		var token = document.querySelector("song-post").fbAccessToken;	
+		$.ajax({
+			type: "POST",
+			url: "https://graph.facebook.com/v2.8/373345019669941/feed?access_token="+token,
+			data: post,
+			success: function(){alert("the song was posted on facebook");},
+			dataType: "json"
+		});
+      }
+  </script>
+  
+</dom-module>

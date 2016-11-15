@@ -36,6 +36,7 @@ namespace MusicApp.Controllers
         }
 
         // GET: Albums/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ViewBag.Artists = from p in db.Artists.ToList()
@@ -53,6 +54,7 @@ namespace MusicApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "Id,artistId, AlbumName")] Album album, HttpPostedFileBase coverPhoto)
         {
             if (ModelState.IsValid)
@@ -79,6 +81,7 @@ namespace MusicApp.Controllers
         }
 
         // GET: Albums/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -106,6 +109,7 @@ namespace MusicApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "Id,AlbumName")] Album album, HttpPostedFileBase coverPhoto)
         {
             if (ModelState.IsValid)
@@ -129,6 +133,7 @@ namespace MusicApp.Controllers
         }
 
         // GET: Albums/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -146,6 +151,7 @@ namespace MusicApp.Controllers
         // POST: Albums/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Album album = db.Albums.Find(id);
