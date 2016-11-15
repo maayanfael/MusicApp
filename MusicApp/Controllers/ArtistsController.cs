@@ -40,6 +40,7 @@ namespace MusicApp.Controllers
         }
 
         // GET: Artists/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {   
             return View();
@@ -50,6 +51,7 @@ namespace MusicApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "Id,firstName,lastName, biography")] Artist artist, HttpPostedFileBase picture)
         {
             if (ModelState.IsValid)
@@ -76,6 +78,7 @@ namespace MusicApp.Controllers
         }
 
         // GET: Artists/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -95,6 +98,7 @@ namespace MusicApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "Id,firstName,lastName, biography")] Artist artist, HttpPostedFileBase picture)
         {
             if (ModelState.IsValid)
@@ -118,6 +122,7 @@ namespace MusicApp.Controllers
         }
 
         // GET: Artists/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -135,6 +140,7 @@ namespace MusicApp.Controllers
         // POST: Artists/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Artist artist = db.Artists.Find(id);

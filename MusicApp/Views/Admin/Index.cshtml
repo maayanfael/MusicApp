@@ -1,0 +1,81 @@
+﻿@model MusicApp.Models.AdminViewModel
+
+@{
+    ViewBag.Title = "Admin Panel";
+}
+<script src="~/WebComponents/webcomponentsjs/webcomponents-lite.js"></script>
+<link rel="import" href="~/WebComponents/d3-chart/d3-chart.html">
+<link rel="import" href="~/WebComponents/song-post/song-post.html">
+<link rel="stylesheet" type="text/css" href="~/WebComponents/d3-chart/tooltip.css">
+<h2>Admin Panel</h2>
+
+<h3>Song Stats</h3>
+<div style="width:1000px;height:350px;">
+    <d3-chart id="genreChart" style="margin-left:150px;width:400px;;position:absolute;" data='@Model.genreData'></d3-chart>
+    <d3-chart id="viewCountChart" style="margin-left:600px;width:400px;position:absolute;" data='@Model.viewCountData'></d3-chart>
+</div>
+<div style="width:1000px;height:20px;">
+    <p style="position:absolute;margin-left:230px;">Genre % Division</p>
+    <p style="position:absolute;margin-left:670px;">Genre Song Views Division</p>
+</div>
+<br />
+<br />
+<br />
+<h3>Ad Facebook Post</h3>
+<br />
+<br />
+<p>Artist</p>
+<input list="ArtistList" id="artistInput">
+<datalist id="ArtistList">
+    @foreach (var artist in Model.artists)
+    {
+        <option value="@artist.firstName @artist.lastName">@artist.firstName @artist.lastName</option>
+    }
+</datalist>
+<br />
+<br />
+<p>Song</p>
+<input list="SongList" id="songInput">
+<datalist id="SongList">
+    @foreach(var song in Model.songs) {
+       <option value="@song.songName">@song.songName</option>     
+    }
+</datalist>
+<br />
+<br />
+<p>Custom Message</p>
+<textarea id="message" rows="8" cols="60"></textarea>
+<br />
+<br />
+<button onclick="postMessage()">Post on Facebook</button>
+
+<song-post></song-post>
+
+ <script>
+     function postMessage() {
+         var poster = document.querySelector("song-post");
+         poster.band = document.querySelector("#artistInput").value;
+         poster.message = document.querySelector("#message").value;
+         poster.song = document.querySelector("#songInput").value;
+         poster.post();
+     }
+
+ </script>
+<br />
+<br />
+<br />
+    <h3>Data Creation</h3>
+    <p>
+        @Html.ActionLink("Create New Song", "Create", "Songs")
+        <br />
+        @Html.ActionLink("Create New Album", "Create", "Albums")
+        <br />
+        @Html.ActionLink("Create New Artist", "Create", "Artists")
+
+    </p>
+
+
+
+
+
+

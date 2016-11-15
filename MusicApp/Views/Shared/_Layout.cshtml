@@ -21,7 +21,14 @@
                 <li class="hvr-bounce-to-top colorE">@Html.ActionLink("About", "About", "Home")</li>
                 <li class="hvr-bounce-to-top colorF">@Html.ActionLink("Contact", "Contact", "Home")</li>
             </div>
+                        @if (this.User.IsInRole("Admin"))
+            {
+                <li class="hvr-bounce-to-top colorG">@Html.ActionLink("Admin Panel", "Index", "Admin")</li>
+            }
             @Html.Partial("_LoginPartial")
+        </div>
+
+
         </nav>
     </header>
     <div class="container body-content">
