@@ -121,6 +121,11 @@ namespace MusicApp.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.Songs = (from p in db.Songs.ToList()
+                            where p.albumId == id
+                            select p).ToList();
+
             return View(album);
         }
 

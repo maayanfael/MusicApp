@@ -42,11 +42,52 @@
 </div>
 <div class="row">
     <div class="col-md-10 col-md-offset-1" style="text-align: center;">
-        <canvas id="canvas" width=500 height=500></canvas>
+        <canvas id="canvas" width=600 height=600></canvas>
     </div>
 </div>
 
 <!-- Sciprts -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://rawgit.com/caleb531/jcanvas/master/jcanvas.min.js"></script>
-@Scripts.Render("~/Scripts/canvas.js")
+
+<script type="text/javascript">
+
+    var canvas = $("#canvas");
+
+    var pictures = [];
+
+    @foreach (var song in ViewBag.Songs)
+    {
+        @:pictures.push("@song.picture");
+    }
+
+    var imagesCount = '@ViewBag.Songs.Count';
+    imagesCount = parseInt(imagesCount);
+    var currImage = 0;
+
+    imageAnimationFunc();
+
+    function imageAnimationFunc() {
+        if (currImage >= imagesCount) currImage = 0;
+
+        canvas.drawImage({
+            layer: true,
+            name: "image" + currImage,
+            source: "data:image/png;base64," + pictures[currImage],
+            x: 0,
+            y: 200,
+            height: 200,
+            width: 200,
+            fromCenter: false
+        });
+        canvas.animateLayer("image" + currImage, {
+            x: 600,
+            y: 200
+        }, 5000, function () {
+            canvas.removeLayer("image" + currImage).drawLayers();
+            currImage++;
+            imageAnimationFunc();
+        });
+
+    }
+</script>
