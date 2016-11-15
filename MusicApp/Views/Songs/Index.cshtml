@@ -16,7 +16,9 @@
 <div class="row">
     <div class="col-md-12">
         <aside style="{font-size: large;}">
-            Already have a song stuck in your head? let us help you find it! <button class="btn btn-primary glyphicon glyphicon-search" onclick=""></button>
+            Already have a song stuck in your head? let us help you find it! 
+            <button class="btn btn-primary glyphicon glyphicon-trash" onclick="location.href='@Url.Action("resetFilters")';"></button>
+            <h4>Current filters - Artist: @ViewBag.Filters[0], Album: @ViewBag.Filters[1], Genre: @ViewBag.Filters[2]</h4>
             <div class="searchArea row">
                 <div class="col-md-3">
                     <label> Artist</label>
@@ -27,8 +29,25 @@
                 <div class="col-md-3">
                     <label> Genre</label>
                 </div>
+            </div>
+            <div class="searchArea row">
                 <div class="col-md-3">
-                    <label> Num of views</label>
+                    @foreach (var artist in @ViewBag.Artists)
+                    {
+                        <a href='@Url.Action("setFilter", new { value = artist.Id, pos = 0 })'>@artist.firstName @artist.lastName (@artist.Id)</a><br />
+                    }
+                </div>
+                <div class="col-md-3">
+                    @foreach (var album in @ViewBag.Albums)
+                    {
+                        <a href='@Url.Action("setFilter", new { value = album.Id, pos = 1 })'>@album.AlbumName (@album.Id)</a><br />
+                    }
+                </div>
+                <div class="col-md-3">
+                    @foreach (var genre in @ViewBag.Genres)
+                    {
+                        <a href='@Url.Action("setFilter", new { value = genre, pos = 2 })'>@genre</a><br />
+                    }
                 </div>
             </div>
         </aside>

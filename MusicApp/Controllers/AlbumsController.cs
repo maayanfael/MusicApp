@@ -13,11 +13,97 @@ namespace MusicApp.Controllers
     public class AlbumsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private static string[] searchFilters = new string[3] { "", "", "" };
 
         // GET: Albums
         public ActionResult Index()
         {
-            return View(db.Albums.ToList());
+            ViewBag.Artists = db.Artists.ToList();
+            ViewBag.NumOfViews = new string[] { "0-10", "11-100", "101-1000", "1000+" };
+            ViewBag.NumOfSongsInAlbum = new string[] { "1-5", "6-10", "11-15", "15+" };
+            ViewBag.Filters = searchFilters;
+
+            if (!filtersExist())
+            {
+                return View(db.Albums.ToList());
+            }
+            else
+            {
+                IEnumerable<Album> displayAlbums = db.Albums.ToList();
+
+                if (searchFilters[0] != "")
+                {
+                    displayAlbums = (from p in displayAlbums
+                                     where p.artistId.ToString() == searchFilters[0]
+                                    select p).ToList();
+                }
+                if (searchFilters[1] != "")
+                {
+                    string[] split;
+                    if (searchFilters[1].Contains("-"))
+                    {
+                        split = searchFilters[1].Split('-');
+                        displayAlbums = (from p in displayAlbums
+                                         where p.numOfViews >= Int32.Parse(split[0]) && p.numOfViews <= Int32.Parse(split[1])
+                                         select p).ToList();
+                    }
+
+                    if (searchFilters[1].Contains("+"))
+                    {
+                        split = searchFilters[1].Split('+');
+                        displayAlbums = (from p in displayAlbums
+                                         where p.numOfViews > Int32.Parse(split[0])
+                                         select p).ToList();
+                    }
+
+                }
+                if (searchFilters[2] != "")
+                {
+                    string[] split;
+                    if (searchFilters[2].Contains("-"))
+                    {
+                        split = searchFilters[2].Split('-');
+                        displayAlbums = (from p in displayAlbums
+                                         where p.songs.Count >= Int32.Parse(split[0]) && p.numOfViews <= Int32.Parse(split[1])
+                                         select p).ToList();
+                    }
+
+                    if (searchFilters[2].Contains("+"))
+                    {
+                        split = searchFilters[2].Split('+');
+                        displayAlbums = (from p in displayAlbums
+                                         where p.songs.Count > Int32.Parse(split[0])
+                                         select p).ToList();
+                    }
+                }
+
+                return View(displayAlbums.ToList());
+            }
+        }
+
+        public ActionResult setFilter(string value, int pos)
+        {
+            searchFilters[pos] = value;
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult resetFilters()
+        {
+            searchFilters = new string[3] { "", "", "" };
+            return RedirectToAction("Index");
+        }
+
+        private Boolean filtersExist()
+        {
+            foreach (string filter in searchFilters)
+            {
+                if (filter != "")
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         // GET: Albums/Details/5

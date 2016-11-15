@@ -13,11 +13,74 @@ namespace MusicApp.Controllers
     public class SongsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private static string[] searchFilters = new string[3] { "", "", "" };
 
         // GET: Songs
         public ActionResult Index()
         {
-            return View(db.Songs.ToList());
+            ViewBag.Artists = db.Artists.ToList();
+            ViewBag.Albums = db.Albums.ToList();
+            ViewBag.Genres = Enum.GetValues(typeof(Genre))
+                            .Cast<Genre>()
+                            .Select(v => v.ToString())
+                            .ToList();
+            ViewBag.Filters = searchFilters;
+
+            if (!filtersExist())
+            {
+               return View(db.Songs.ToList());
+            }
+            else
+            {
+              IEnumerable<Song> displaySongs = db.Songs.ToList();
+
+              if (searchFilters[0] != "")
+              {
+                  displaySongs = (from p in displaySongs
+                                  where p.artistId.ToString() == searchFilters[0]
+                                  select p).ToList();
+              }
+              if (searchFilters[1] != "")
+              {
+                  displaySongs = (from p in displaySongs
+                                  where p.albumId.ToString() == searchFilters[1]
+                                  select p).ToList();
+
+              }
+              if (searchFilters[2] != "")
+              {
+                  displaySongs = (from p in displaySongs
+                                  where p.genre.ToString() == searchFilters[2]
+                                  select p).ToList();
+              }
+               
+                return View(displaySongs.ToList());
+            }
+        }
+
+        public ActionResult setFilter(string value, int pos)
+        {
+            searchFilters[pos] = value;
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult resetFilters()
+        {
+            searchFilters = new string[3] { "", "", "" };
+            return RedirectToAction("Index");
+        }
+
+        private Boolean filtersExist()
+        {
+            foreach (string filter in searchFilters)
+            {
+                if (filter != "")
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         // GET: Songs/Details/5
