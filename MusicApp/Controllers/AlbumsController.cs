@@ -28,6 +28,9 @@ namespace MusicApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Album album = db.Albums.Find(id);
+            album.numOfViews = album.numOfViews + 1;
+            db.Entry(album).State = EntityState.Modified;
+            db.SaveChanges();
             if (album == null)
             {
                 return HttpNotFound();
@@ -96,6 +99,7 @@ namespace MusicApp.Controllers
                                   Id = p.Id,
                                   FullName = p.firstName + " " + p.lastName
                               };
+
 
             if (album == null)
             {
