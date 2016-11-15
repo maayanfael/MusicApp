@@ -1,0 +1,145 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<script type="text/javascript" src="./d3.js"></script>
+
+
+<dom-module id="d3-chart">
+  <template>
+    <style>
+	    .slice text {
+            font-size: 16pt;
+            font-family: Arial;
+        }
+		:host{
+			width:400px;
+			    display: block;
+    height: 300px;
+		}
+		#chartContainer{
+			width:400px;
+			height:100%;
+			position:absolute;
+		}	
+		.tooltip {
+			background: #eee;
+			box-shadow: 0 0 5px #999999;
+			color: #333;
+			display: none;
+			font-size: 12px;
+			left: 0px;
+			padding: 10px;
+			position: absolute;
+			text-align: center;
+			bottom: 0px;
+			width: 80px;
+			z-index: 10;
+		}
+    </style>
+	<div id="chartContainer"></div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'd3-chart',
+
+     
+
+      properties: {
+        
+		chartWidth:{
+		  type:Number,
+		  value:300
+		},
+		chartHeight:{
+		  type:Number,
+		  value:300
+		},
+		chartRadius:{
+		  type:Number,
+		  value:150
+		},
+		data: {
+          type: Array,
+          value: [],
+		  observer: '_dataChanged'
+        }
+      },
+
+      _dataChanged: function() {
+		this._reloadChart();	     
+      },
+	  
+	  _reloadChart:function(){
+	  
+			var currentData = this.data;
+			var container = this.$.chartContainer;
+			while (container.firstChild) {
+				container.removeChild(container.firstChild);
+			}
+			  var color = d3.scaleOrdinal(d3.schemeCategory20b);
+			
+			
+        var svg = d3.select('#'+this.id+' #chartContainer')
+          .append('svg')
+          .attr('width', this.chartWidth)
+          .attr('height', this.chartHeight)
+          .append('g')
+          .attr('transform', 'translate(' + (this.chartWidth / 2) +
+            ',' + (this.chartHeight / 2) + ')');
+
+        var arc = d3.arc()
+          .innerRadius(0)
+          .outerRadius(this.chartRadius);
+
+        var pie = d3.pie()
+          .value(function(d) { return d.count; })
+          .sort(null);
+
+        var path = svg.selectAll('path')
+          .data(pie(currentData))
+          .enter()
+          .append('path')
+          .attr('d', arc)
+          .attr('fill', function(d) {
+            return color(d.data.label);
+          });	
+		  
+		var tooltip = d3.select('#'+this.id+' #chartContainer')                               
+          .append('div')                                                
+          .attr('class', 'cTooltip');                                   
+
+        tooltip.append('div')                                        
+          .attr('class', 'label');                                   
+
+        tooltip.append('div')                                        
+          .attr('class', 'percent');                                 
+		
+		path.on('mouseover', function(d) {                           
+            var total = d3.sum(currentData.map(function(d) {         
+              return d.count;                                        
+            }));                                                     
+            var percent = Math.round(1000 * d.data.count / total) / 10; 
+            tooltip.select('.label').html(d.data.label);                
+            tooltip.select('.count').html(d.data.count);                
+            tooltip.select('.percent').html(percent + '%');             
+            tooltip.style('display', 'block');                          
+          });                                                           
+
+          path.on('mouseout', function() {                              
+            tooltip.style('display', 'none');                           
+          });
+	  
+	  }
+	  
+    });
+  </script>
+</dom-module>

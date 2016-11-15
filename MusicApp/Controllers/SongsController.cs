@@ -28,6 +28,9 @@ namespace MusicApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Song song = db.Songs.Find(id);
+            song.numOfViews = song.numOfViews + 1;
+            db.Entry(song).State = EntityState.Modified;
+            db.SaveChanges();
             if (song == null)
             {
                 return HttpNotFound();
@@ -35,22 +38,18 @@ namespace MusicApp.Controllers
             return View(song);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Songs/Create
         public ActionResult Create()
         {
             ViewBag.Artists = from p in db.Artists.ToList()
-                               select new
-                               {
-                                   Id = p.Id,
-                                   FullName = p.firstName + " " + p.lastName
-                               };
-
-            ViewBag.Albums = from p in db.Albums.ToList()
                               select new
                               {
                                   Id = p.Id,
-                                  Name = p.AlbumName
+                                  FullName = p.firstName + " " + p.lastName
                               };
+
+            ViewBag.Albums = db.Albums.ToList();
 
             return View();
         }
@@ -60,6 +59,7 @@ namespace MusicApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles ="Admin")]
         public ActionResult Create([Bind(Include = "Id,songName,albumId,artistId,publishDate,genre")] Song song, HttpPostedFileBase picture, HttpPostedFileBase video)
         {
             if (ModelState.IsValid)
@@ -97,6 +97,7 @@ namespace MusicApp.Controllers
         }
         ///
         // GET: Songs/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -116,6 +117,7 @@ namespace MusicApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "Id,songName,albumId,artistId,publishDate,genre")] Song song, HttpPostedFileBase picture, HttpPostedFileBase video)
         {
             if (ModelState.IsValid)
@@ -149,6 +151,7 @@ namespace MusicApp.Controllers
         }
 
         // GET: Songs/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -166,6 +169,7 @@ namespace MusicApp.Controllers
         // POST: Songs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Song song = db.Songs.Find(id);
