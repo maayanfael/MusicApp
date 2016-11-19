@@ -14,7 +14,10 @@
         <div class="headerTitle colorB active">
             <div class="actionBtnTitlePos">
                 <a title="Back to List" href="@Url.Action("Index")" class="actionBtnTitle glyphicon glyphicon-arrow-left"></a>
+@if (this.User.IsInRole("Admin"))
+{
                 <a title="Edit Artist" href="@Url.Action("Edit", new { id = Model.Id })" class="actionBtnTitle glyphicon glyphicon-pencil"></a>
+}
             </div>
             @Html.DisplayFor(model => model.firstName) @Html.DisplayFor(model => model.lastName)
         </div>

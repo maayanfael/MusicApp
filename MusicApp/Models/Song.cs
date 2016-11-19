@@ -10,19 +10,12 @@ namespace MusicApp.Models
 {
     public enum Genre
     {
-        AvantGarde,
         Blues,
-        CaribbeanAndCaribbeanInfluenced,
-        Comedy,
         Country,
-        EasyListening,
-        Electronic,
         Folk,
         HipHop,
         Jazz,
-        Latin,
         Pop,
-        RandBandSoul,
         Rock
     }
 

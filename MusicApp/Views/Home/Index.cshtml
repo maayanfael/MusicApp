@@ -13,7 +13,7 @@
         <ol>
             @foreach (var item in @ViewBag.TopArtists)
             {
-                <li>@item.firstName @item.lastName</li>
+                <li>@item.firstName @item.lastName (@item.numOfViews)</li>
             }
         </ol>
     </section>
@@ -22,7 +22,7 @@
         <ol>
             @foreach (var item in @ViewBag.TopAlbums)
             {
-                <li>@item.AlbumName</li>
+                <li>@item.AlbumName (@item.numOfViews)</li>
             }
         </ol>
     </section>
@@ -31,7 +31,7 @@
         <ol>
             @foreach (var item in @ViewBag.TopSongs)
             {
-                <li>@item.songName</li>
+                <li>@item.songName (@item.numOfViews)</li>
             }
         </ol>
     </section>

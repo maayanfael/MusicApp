@@ -7,7 +7,7 @@
 <link rel="import" href="~/WebComponents/d3-chart/d3-chart.html">
 <link rel="import" href="~/WebComponents/song-post/song-post.html">
 <link rel="stylesheet" type="text/css" href="~/WebComponents/d3-chart/tooltip.css">
-<h2>Admin Panel</h2>
+<h2 class="titleG">Admin Panel</h2>
 
 <h3>Song Stats</h3>
 <div style="width:1000px;height:350px;">
@@ -15,18 +15,18 @@
     <d3-chart id="viewCountChart" style="margin-left:600px;width:400px;position:absolute;" data='@Model.viewCountData'></d3-chart>
 </div>
 <div style="width:1000px;height:20px;">
-    <p style="position:absolute;margin-left:230px;">Genre % Division</p>
-    <p style="position:absolute;margin-left:670px;">Genre Song Views Division</p>
+    <p style="position:absolute;margin-left:230px;">Song - Genre Division</p>
+    <p style="position:absolute;margin-left:670px;">Division of Views by Song Genre </p>
 </div>
 <br />
 <br />
 <br />
-<h3>Ad Facebook Post</h3>
+<h3>Add Facebook Post</h3>
 <br />
 <br />
 <p>Artist</p>
-<input list="ArtistList" id="artistInput">
-<datalist id="ArtistList">
+<input list="ArtistList" id="artistInput"  class="form-control" >
+<datalist id="ArtistList" >
     @foreach (var artist in Model.artists)
     {
         <option value="@artist.firstName @artist.lastName">@artist.firstName @artist.lastName</option>
@@ -35,7 +35,7 @@
 <br />
 <br />
 <p>Song</p>
-<input list="SongList" id="songInput">
+<input list="SongList" id="songInput"  class="form-control" >
 <datalist id="SongList">
     @foreach(var song in Model.songs) {
        <option value="@song.songName">@song.songName</option>     
@@ -44,10 +44,10 @@
 <br />
 <br />
 <p>Custom Message</p>
-<textarea id="message" rows="8" cols="60"></textarea>
+<textarea class="form-control" id="message" rows="8" cols="60"></textarea>
 <br />
 <br />
-<button onclick="postMessage()">Post on Facebook</button>
+<button onclick="postMessage()" class="btn btn-primary">Post on Facebook</button>
 
 <song-post></song-post>
 

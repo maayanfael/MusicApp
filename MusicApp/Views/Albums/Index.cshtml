@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<MusicApp.Models.Album>
 
+
 @{
     ViewBag.Title = "Albums";
 }
-
-<h2>Index</h2>
+<h2 class="titleC">@ViewBag.Title</h2>
 
 <p>
     @if (this.User.IsInRole("Admin"))
@@ -16,8 +16,29 @@
 <div class="col-md-12">
     <aside style="{font-size: large;}">
         Already have an album stuck in your head? let us help you find it! 
-        <button class="btn btn-primary glyphicon glyphicon-trash" onclick="location.href='@Url.Action("resetFilters")';"></button>
-        <h4>Current filters - Artist: @ViewBag.Filters[0], Num of views: @ViewBag.Filters[1], Num of songs in album: @ViewBag.Filters[2]</h4>
+        @if ((@ViewBag.Filters[0] == "") && (@ViewBag.Filters[1] == "") && (@ViewBag.Filters[2] == ""))
+        {
+            <p>Choose the filters you want to see</p>
+        }
+        else
+        {
+                <p>
+                    Showing albums
+                    @if (@ViewBag.Filters[0] != "")
+                    {
+                        <span> of the artist @ViewBag.Filters[0]</span>
+                    }
+                    @if (@ViewBag.Filters[1] != "")
+                    {
+                        <span> with @ViewBag.Filters[1] view</span>
+                    }
+                    @if (@ViewBag.Filters[2] != "")
+                    {
+                        <span> with @ViewBag.Filters[2] songs in it</span>
+                    }
+                    <button class="btn btn-primary glyphicon glyphicon-trash" onclick="location.href='@Url.Action("resetFilters")';"></button>
+                </p>
+        }
         <div class="searchArea row">
             <div class="col-md-3">
                 <label> Artist</label>

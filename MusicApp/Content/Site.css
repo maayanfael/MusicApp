@@ -166,3 +166,38 @@ textarea {
 .ListActionBtnPos {
     float:right;
 }
+
+.titleA {
+    border-left: solid 10px #341e48;
+    padding-left: 5px;
+}
+
+.titleB {
+    border-left: solid 10px #274092;
+    padding-left: 5px;
+}
+
+.titleC {
+    border-left: solid 10px #257e7f;
+    padding-left: 5px;
+}
+
+.titleD {
+    border-left: solid 10px #39a44d;
+    padding-left: 5px;
+}
+
+.titleE {
+    border-left: solid 10px #67ac18;
+    padding-left: 5px;
+}
+
+.titleF {
+    border-left: solid 10px #afa713;
+    padding-left: 5px;
+}
+
+.titleG {
+    border-left: solid 10px #c78218;
+    padding-left: 5px;
+}

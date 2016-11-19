@@ -168,10 +168,21 @@ namespace MusicApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Song song = db.Songs.Find(id);
+
             if (song == null)
             {
                 return HttpNotFound();
             }
+            
+            ViewBag.Artists = from p in db.Artists.ToList()
+                              select new
+                              {
+                                  Id = p.Id,
+                                  FullName = p.firstName + " " + p.lastName
+                              };
+
+            ViewBag.Albums = db.Albums.ToList();
+
             return View(song);
         }
 
